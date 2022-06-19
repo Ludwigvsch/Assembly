@@ -1,0 +1,47 @@
+// Ludwig von Schoenfeldt
+// 05/08/2022
+// CS 17
+// SID: 1871721
+// Unit 12 Currency Converter
+
+
+program CurrencyConverter;
+
+#include( "stdlib.hhf" );
+static
+  usd : real32; // amount of USD
+  britishPounds : real32; // amount of British Pounds
+  mexicanPesos : real32; // amount of Mexican Pesos
+  usdToBritishPounds : real32 := 0.7403; // conversion rate from USD to British Pounds
+  usdToMexicanPesos : real32 := 2056.47; // conversion rate from USD to Mexican Pesos
+
+begin CurrencyConverter;
+
+  // input
+  stdout.put( "What's in your wallet: " );
+  stdin.get( usd );
+
+  // compute british pounds and mexican pesos
+  finit();
+  fld( usd );          // load usd into the stack
+  fld( usdToBritishPounds ); // load conversion rate to the stack
+  fmul();              // multiply usd by conversion rate
+  fstp( britishPounds ); // save to britishPounds
+
+  finit();
+  fld( usd );          // load usd to the stack
+  fld( usdToMexicanPesos ); // load conversion rate to the stack
+  fmul();              // multiply usd by conversion rate
+  fstp( mexicanPesos ); // save to mexicanPesos
+
+  // output
+  stdout.put( "This is " );
+  stdout.putr32( britishPounds, 6, 2 );
+  stdout.put( " in British pounds"#13#10 );
+
+  stdout.put( "This is " );
+  stdout.putr32( mexicanPesos, 9, 2);
+  stdout.put( " in Mexican pesos"#13#10 );
+
+  
+end CurrencyConverter;

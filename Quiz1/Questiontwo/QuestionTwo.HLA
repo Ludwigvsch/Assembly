@@ -1,0 +1,77 @@
+// Ludwig von Schoenfeldt
+// 04/24/22
+// CS 17
+// SID: 1871721
+// Quiz1 Question 2
+
+program QuestionTwo;
+#include ("stdlib.hhf") 
+
+static
+input: int32 := 0;
+smallest: int32 := 0;
+biggest: int32 := 0;
+total_num: int32:= 0;
+
+begin QuestionTwo;
+
+stdout.put("Gimme data: ");
+stdin.get(input);
+MOV(input, biggest);
+inc(total_num);
+
+stdout.put("Gimme data: ");
+stdin.get(input);
+MOV(input, smallest); 
+
+MOV(biggest, EAX);
+cmp(smallest, EAX);
+jnl first;
+inc(total_num);
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+WhileLp:
+stdout.put("Gimme data: ");
+stdin.get(input);
+
+WhileLpTermination: //condition
+MOV(input, EAX);
+cmp(EAX, biggest); 
+jng greater; 
+MOV(EAX, biggest);
+inc(total_num);
+
+stdout.put("Gimme data: ");
+stdin.get(input);
+
+MOV(input, EAX);
+cmp(EAX, smallest);
+jnl less; 
+MOV(EAX, smallest);
+inc(total_num);
+
+jmp WhileLp; //else keep looping
+
+greater:
+stdout.put("Data entry ended because ", input ," is not bigger than ", biggest);
+stdout.newln();
+stdout.put("There were ", total_num ," numbers entered successfully");
+jmp WhileLpDone;
+
+less:
+stdout.put("Data entry ended because ", input ," is not smaller than ", smallest);
+stdout.newln();
+stdout.put("There were ", total_num ," numbers entered successfully");
+jmp WhileLpDone;
+
+first:
+stdout.put("Data entry ended because ", smallest ," is not smaller than ", biggest);
+stdout.newln();
+stdout.put("There were ", total_num ," numbers entered successfully");
+jmp WhileLpDone;
+
+WhileLpDone:
+
+end QuestionTwo;

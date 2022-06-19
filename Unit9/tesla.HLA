@@ -1,0 +1,112 @@
+// Ludwig von Schoenfeldt
+// 04/10/22
+// CS 17
+// SID: 1871721
+// Unit 9 tesla.HLA
+
+
+program car_details;
+    #include("stdlib.hhf");
+   
+static
+       
+begin car_details;
+    stdout.put ( "Feed me(4 hex digits ending with srttccbbmm): ");     
+    stdin.get(ax);                                                      
+    mov(ax,bx);                                                         
+    and(2,ah);                                                         
+    shr(1,ah);                                                        
+    
+    cmp(ah,1);                                                        
+    je L1;
+    stdout.put ( "No sunroof",nl);                                     
+    jmp L2;                                                             
+L1:
+       
+    stdout.put ( "Sunroof",nl);                                         
+L2:
+    mov(bx,ax);                                                        
+    and(1,ah);                                                        
+   
+    cmp(ah,1);                                                         
+    je L3;
+    stdout.put ( "No roofrack",nl);                                          
+    jmp L4;                                                            
+L3:
+       
+    stdout.put ( "Roofrack",nl);                                       
+L4:
+    mov(bx,ax);                                                        
+    and(192,al);                                                       
+    shr(6,al);                                                        
+    cmp(al,0);                                                         
+    jne L5;
+    stdout.put ( "18 inch ");                                           
+    jmp L8;                                                            
+L5: cmp(al,1);                                                        
+    jne L6;
+    stdout.put ( "19 inch ");                                                                    
+    jmp L8;                                                         
+L6: cmp(al,2);                                                       
+    jne L7;
+    stdout.put ( "20 inch ");                              
+    jmp L8;                                                     
+L7: stdout.put ( "21 inch ");                                    
+L8:  
+
+    mov(bx,ax);                                               
+    and(48,al);                                               
+    shr(4,al);                                              
+    cmp(al,0);                                                  
+    jne L9;
+    stdout.put ( "blue ");                                         
+    jmp L12;                                                        
+L9: cmp(al,1);                                                       
+    jne L10;
+    stdout.put ( "red ");                                        
+    jmp L12;                                                   
+L10: cmp(al,2);                                                   
+    jne L11;
+    stdout.put ( "white ");                                      
+    jmp L12;                                                      
+L11: stdout.put ( "black ");                                    
+         
+L12:   
+    mov(bx,ax);                                                    
+    and(12,al);                                                    
+    shr(2,al);                                                  
+    cmp(al,0);                                                                  
+    jne L13;
+    stdout.put ( "60 kwH ");                                     
+    jmp L16;                                                      
+L13: cmp(al,1);                                                   
+    jne L14;
+    stdout.put ( "75 kwH ");                                     
+    jmp L16;                                                      
+L14: cmp(al,2);                                                   
+    jne L15;
+    stdout.put ( "85 kwH ");                                                                        
+    jmp L16;                                                      
+L15: stdout.put ( "100 kwH ");                                  
+         
+L16:   
+
+    mov(bx,ax);                                                
+    and(3,al);                                                   
+  
+    cmp(al,0);                                                     
+    jne L17;
+    stdout.put ( "Model S");                                     
+    jmp L20;                                                                  
+L17: cmp(al,1);                                                   
+    jne L18;                                        
+    stdout.put ( "Model X");                                                                 
+    jmp L20;                                                    
+L18: cmp(al,2);
+    jne L19;                                                   
+    stdout.put ( "Model 3");                                        
+    jmp L20;                                                  
+L19: stdout.put ( "Model Y");                                
+    
+L20:
+end car_details;  

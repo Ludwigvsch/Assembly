@@ -1,0 +1,12 @@
+program table;
+#include( "stdlib.hhf" );
+begin table;
+    var number: int32;
+    stdout.put( "Gimme a starting value: ", nl );
+    stdin.get( number );
+    stdout.put( number, " ", number, " ", number + 1, " ", number, " ", number, nl );
+    stdout.put( number, " ", number, " ", number + 2, " ", number, " ", number, nl );
+    stdout.put( number + 3, " ", number + 4, " ", number + 5, " ", number + 6, " ", number + 7, nl );
+    stdout.put( number, " ", number, " ", number + 8, " ", number, " ", number, nl );
+    stdout.put( number, " ", number, " ", number + 9, " ", number, " ", number, nl );
+end table;

@@ -1,0 +1,57 @@
+// Ludwig von Schoenfeldt
+// 05/22/2022
+// CS 17
+// SID: 1871721
+// Unit 14 Rolling Average
+
+
+program rollingAverage;
+
+#include( "stdlib.hhf" );
+static
+  more : byte := 121; 
+  data : real32;
+  average : real32 := 0; 
+  previous_average : real32 := 0; 
+  n : real32 := 0;
+  one : real32 := 1;
+
+begin rollingAverage;
+
+  whileLoop:
+  whileCondition:
+    mov( more, BL );
+    cmp( BL, 121 );
+    jne whileEnd;
+  whileBody:
+    stdout.put( "enter data point: " );
+    stdin.get( data );
+    mov( average, previous_average );
+
+    finit();
+    fld( n );
+    fld( previous_average );
+    fmul();
+    fld( data );
+    fadd();
+    fld( n );
+    fld( one );
+    fadd();
+    fdiv();
+    fstp( average ); 
+    fld( n );
+    fld( one );
+    fadd();
+    fstp( n );
+    stdout.put( "rolling average = " );
+    stdout.putr32( average, 6, 3 );
+
+    stdout.put( nl, "more data? " );
+    stdin.flushInput();
+    stdin.getc();
+    mov( AL, more );
+    jmp whileCondition;
+  whileEnd:
+  stdout.put( "final rolling average = " );
+  stdout.putr32( average, 6, 3 );
+end rollingAverage;

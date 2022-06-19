@@ -1,0 +1,115 @@
+// Ludwig von Schoenfeldt
+// 05/22/2022
+// CS 17
+// SID: 1871721
+// Unit 14 Hurricane
+
+
+program HurricaneCategory;
+#include("stdlib.hhf");
+
+static
+a :real32;
+
+procedure hurrican( windspeed : real32 ); @nodisplay; @noframe;
+static
+returnAddress: dword;
+some : real32 :=96; 
+extensive : real32 :=111;
+devastating : real32 :=130;
+catastrophic : real32 :=157;
+verycat : real32 :=158;
+
+begin hurrican;
+    pop( returnAddress );
+        pop( windspeed );
+    push( returnAddress );
+    push(windspeed);
+    mov(0,AL);
+    mov(a,windspeed);
+
+finit();
+fld(some);
+fld(windspeed);
+fcomp();
+fstsw(ax);
+sahf(); //check if its less than
+setb(al);
+cmp(al,1);
+je print1;    //print tax code 1
+jmp checkforextensive;
+
+print1:
+mov(1,AL);
+stdout.put("irs tax tier code: ");
+stdout.puti8(AL);
+jmp ExitSequence;
+
+checkforextensive:
+finit();
+fld(extensive);
+fld(windspeed);
+fcomp();
+fstsw(ax);        
+sahf();         
+setb(al);      
+cmp(al,1);
+je print2; 
+jmp checkfordevastating;
+print2:
+mov(2,AL);
+stdout.put("irs tax tier code: ");
+stdout.puti8(AL);
+jmp ExitSequence;
+
+checkfordevastating:
+finit();
+fld(devastating);
+fld(windspeed);
+fcomp();
+fstsw(ax);  
+sahf();  
+setb(al);  
+cmp(al,1);
+je print3;
+jmp checkforcatastrophic;
+
+print3:
+mov(3,AL);
+stdout.put("irs tax tier code: ");
+stdout.puti8(AL);
+jmp ExitSequence;
+checkforcatastrophic:
+finit();
+fld(catastrophic);
+fld(windspeed);
+fcomp();
+fstsw(ax);  
+sahf();  
+setb(al);       
+cmp(al,1);
+je print4;
+jmp checkforvery;
+
+print4:
+mov(4,AL);
+stdout.put("irs tax tier code: ");
+stdout.puti8(AL);
+jmp ExitSequence;
+
+checkforvery:
+print5:
+mov(5,AL);
+stdout.put("irs tax tier code: ");
+stdout.puti8(AL);
+jmp ExitSequence;
+
+ExitSequence:
+end hurrican;
+begin HurricaneCategory;
+stdout.put ("Gimme windspeed: ");
+stdin.get (a);
+call hurrican;
+
+end HurricaneCategory; 
+  

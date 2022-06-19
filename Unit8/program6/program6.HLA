@@ -1,0 +1,56 @@
+// Ludwig von Schoenfeldt
+// 04/03/22
+// CS 17
+// SID: 1871721
+// Unit 8 program 6
+
+program program6;
+    #include("stdlib.hhf");
+    static
+        value1: int16;                             
+        value2: int16;                              
+        value3: int16;                             
+        sum: int16 :=0;                          
+        flag: int16 :=0;
+
+    begin program6;
+        while(flag==0) do                                    
+            stdout.put ( "Gimme a number:");               
+            stdin.get(value1);                             
+            mov(value1,ax);                                 
+            add(ax,sum);                                  
+            if(value1== 8) then                           
+                mov(1,flag);
+            endif;
+            stdout.put( "Gimme a number:");              
+            stdin.get(value2);                             
+            mov(value2,ax);                                 
+            add(ax,sum);                                    
+            if(value2== 8) then                             
+                mov(1,flag);
+            endif;
+            stdout.put( "Gimme a number:");              
+            stdin.get(value3);                             
+            mov(value3,ax);                                
+            add(ax,sum);                                  
+            if(value3== 8) then                                  
+                mov(1,flag);
+            endif;
+            if(flag==1) then                               
+                stdout.put ( "Crazy Eight",nl);             
+                mov(0,flag);                            
+            else;
+                mov(1,flag);                         
+                mov( sum,ax);                        
+                mov(10,cl);                          
+                div(cl,ax);                          
+                if(ah==8)then                          
+                    stdout.put ( "Eight",nl);         
+                    mov(0,flag);                      
+                endif;
+            endif;
+        endwhile;   
+    stdout.put ("Game Over!",nl);                  
+    stdout.put ( "Score= ");                       
+    stdout.put ( sum);                           
+end program6;  

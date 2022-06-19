@@ -1,0 +1,101 @@
+/*
+Create an HLA function that checks whether none of its passed parameters are zero.  This function should have the following signature: 
+
+procedure noneZero( value1 : int16; value2 : int16; value3 : int16 ); @nodisplay; @noframe; 
+
+This function should return a one in EAX if all of the passed arguments are not zero; otherwise, return zero in EAX. Your function should replicate the following C code:
+
+bool noneZero( int value1, int value2, int value3 ) 
+{ 
+  bool result = true;
+
+  if (value1 == 0) 
+  { 
+      result = false; 
+  }
+
+  if (value2 == 0) 
+  { 
+      result = false; 
+  }
+
+  if (value3 == 0)
+  {
+      result = false;
+  } 
+  return( result ); 
+}
+
+IN ORDER TO RECEIVE FULL CREDIT, YOU MUST USE THE TEMPLATE SOLUTION SHOWN BELOW. Of course, you will need to add code to the function to implement the desired algorithm explained above. In addition, you will need to push the parameters to the function.  Be sure to preserve any registers your function touches. 
+*/
+
+// isEven Template Solution For CS 17 Final 
+// CS 17 Students must use this template. 
+// Please look at the TODO: notes below 
+program isNoneZeroProgram;
+#include( "stdlib.hhf" ); 
+static
+
+iValue1: int16 := 0; 
+iValue2: int16 := 0;
+iValue3: int16 := 0;
+iAnswer : int32 := 0;
+
+// TODO: CS 17 Students add code below to implement this function 
+// Several hints are supplied 
+procedure noneZero( value1 : int16; value2 : int16; value3 : int16 );@nodisplay; @noframe; 
+static 
+   dReturnAddress : dword;
+   zero : int16 := 0; 
+begin noneZero ;
+
+pop( dReturnAddress );
+pop(value1);
+pop(value2);
+pop(value3);
+push( dReturnAddress );
+
+
+mov( value1, AX );
+cmp( zero, AX ); 
+je noneZeroEnd; 
+mov( value2, AX ); 
+cmp( zero, AX ); 
+je noneZeroEnd; 
+mov( value3, AX ); 
+cmp( zero, AX ); 
+je noneZeroEnd;  
+
+ mov( 1 ,EAX);     //return true if all values are not zero.  
+
+ jmp noneZeroExit;   //jump to the exit point.
+
+ noneZeroEnd:    //if any of the values are zero then return false.  
+
+ mov( 0, EAX );
+
+ noneZeroExit:
+ ret( ); 
+end noneZero; 
+
+begin isNoneZeroProgram;
+
+stdout.put("Gimme iValue1:" ); 
+stdin.get(iValue1); 
+stdout.put("Gimme iValue2:" ); 
+stdin.get(iValue2);
+stdout.put("Gimme iValue3:" );
+stdin.get(iValue3);
+
+// TODO: push parameters to the function.
+push(iValue3);
+push(iValue2);
+push(iValue1);
+
+call noneZero; 
+mov( EAX, iAnswer ); 
+
+stdout.put( "after noneZero iAnswer=", iAnswer ); 
+stdout.newln(); 
+
+end isNoneZeroProgram;

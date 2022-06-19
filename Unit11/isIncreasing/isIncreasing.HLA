@@ -1,0 +1,77 @@
+// Ludwig von Schoenfeldt
+// 05/02/2022
+// CS 17
+// SID: 1871721
+// Unit 11 isIncreasing.HLA
+
+/*PROGRAM 9: isIncreasing Function
+Write an HLA Assembly language program that implements the following function:
+
+procedure isDecreasing( i: int32; j : int32; k : int32 ); @nodisplay; @noframe;
+
+This function should return into EAX the value 1 if i > j and j > k; otherwise, 
+return into EAX the value 0.  In order to receive full credit, you should be 
+preventing register corruption by preserving and then restoring the value of 
+    any register your function touches.  This rule applies to every register 
+    except for EAX which is being used to pass an answer back to the calling code.*/
+        
+program isIncreasingProgram;
+#include( "stdlib.hhf" );
+static
+i_input : int32 := 0;
+j_input : int32 := 0;
+k_input : int32 := 0;
+
+procedure isDecreasing( i: int32; j : int32; k : int32 ); @nodisplay; @noframe;
+static
+iReturnAddress : dword;
+
+begin isDecreasing;
+
+pop(iReturnAddress);
+pop(k);
+pop(j);
+pop(i);
+push(iReturnAddress);
+push(EBX); 
+mov(j, EBX); 
+cmp(i, EBX);
+jg first_pass; 
+jmp ret_false; 
+first_pass:
+mov(k, EBX);
+cmp(j, EBX); 
+jg ret_true;
+
+jmp ret_false; 
+
+ret_true:
+mov(1, EAX);
+jmp finish;
+
+ret_false:
+mov(0, EAX);
+jmp finish;
+finish:
+
+pop(EBX); 
+ret();
+end isDecreasing;
+
+begin isIncreasingProgram;
+stdout.put("Feed Me i: ");
+stdin.get(i_input);
+stdout.put("Feed Me j: ");
+stdin.get(j_input);
+stdout.put("Feed Me k: ");
+stdin.get(k_input);
+
+push(i_input);
+push(j_input);
+push(k_input);
+call isDecreasing;
+
+stdout.put("EAX = ");
+stdout.puti32(EAX);
+
+end isIncreasingProgram;

@@ -1,0 +1,134 @@
+/*
+Create an HLA function that forces a value into all three passed parameters.  This function should have the following signature: 
+
+procedure makeSmallest( var i : int16; var j : int16; var k : int16 );@nodisplay; @noframe; 
+
+After calling this function, the value of all the driver’s variables should be set to the value of the smallest of the three passed parameters. Your function should replicate the following C code: 
+
+void makeSmallest( int * i, int * j, int * k ) { 
+
+int smallest = *i;
+if (*j < smallest)
+{
+  smallest = *j;
+}
+if (*k < smallest)
+{
+  smallest = *k;
+}
+*i = smallest;
+*j = smallest; 
+*k = smallest;
+} 
+
+IN ORDER TO RECEIVE FULL CREDIT, YOU MUST USE THE TEMPLATE SOLUTION SUPPLIED BELOW>  Of course, you will need to add code to the function to implement the desired algorithm explained above. In addition, you will need to push the parameters to the function.  Be sure your function preserves all the registers it touches. 
+*/
+
+// Reference Parameter Template Solution For CS 17 Final 
+// CS 17 Students must use this template as the basis for their solution. I hope it will help simplify your development task. 
+// Please look at the two TODO: notes below 
+
+program ReferenceProgram ; 
+#include( "stdlib.hhf" ); 
+static 
+iValue1 : int16 := 0; 
+iValue2 : int16 := 0; 
+iValue3 : int16 := 0; 
+// TODO: CS 17 Students add code below to implement this function 
+// Several hints are supplied 
+procedure makeSmallest( var i : int16; var j : int16; var k : int16 );@nodisplay; @noframe; 
+static 
+dReturnAddress : dword; 
+iTemporary : dword;
+ismallest : int16 := 0;
+
+dEDXRegister : dword:= 0; //preserve dEDX
+dECXRegister : dword := 0; // preserve ECX
+dEBXRegister : dword := 0; // preserve EBX
+begin makeSmallest ; 
+mov(EBX, dEBXRegister);
+mov(ECX, dECXRegister);
+mov(EDX, dEDXRegister);
+pop( dReturnAddress ); 
+pop( EDX ); 
+pop( ECX ); 
+pop( EBX ); 
+push( dReturnAddress ); 
+
+// preserve registers
+push( dEDXRegister );
+push( dECXRegister );
+push( dEBXRegister );
+
+//begin subtask of comparing
+
+mov([EBX], i); // i = *i
+mov([ECX], j); // j = *j
+mov([EDX], k); // k = *k
+
+mov([EBX], AX);
+cmp(AX, [ECX]);
+jl ismallerthanj;
+mov([ECX], ismallest);
+jmp secondPart;
+ismallerthanj:
+mov([EBX], ismallest);
+
+secondPart:
+
+mov(0, AX);
+mov(ismallest, AX);
+cmp(AX, [EDX]); 
+jl finished;
+mov([EDX], ismallest);
+jmp finished;
+
+finished:
+
+mov(ismallest, [EBX]);
+mov(ismallest, [ECX]);
+mov(ismallest, [EDX]);
+
+pop( dEBXRegister ); 
+pop( dECXRegister ); 
+pop( dEDXRegister );  
+
+mov (dEBXRegister, EBX); 
+mov (dECXRegister, ECX); 
+mov (dEDXRegister, EDX);
+
+ret();   // return to caller.  
+end makeSmallest;
+
+begin ReferenceProgram ;
+
+stdout.put( "Gimme iValue1:" ); 
+stdin.get( iValue1 ); 
+stdout.put( "Gimme iValue2:" ); 
+stdin.get( iValue2 ); 
+stdout.put( "Gimme iValue3:" ); 
+stdin.get( iValue3 ); 
+
+// TODO: push parameters to the function. 
+lea(EAX, iValue1);
+push(EAX);
+lea(EAX, iValue2);
+push(EAX);
+lea(EAX, iValue3);
+push(EAX);
+// These parameters must be passed by-reference. 
+call makeSmallest ; 
+stdout.put( "after makeSmallest!" ); 
+stdout.newln(); 
+stdout.put( "iValue1 = " ); 
+stdout.put( iValue1 ); 
+stdout.put(" ");
+stdout.put( "iValue2 = " ); 
+stdout.put( iValue2 ); 
+stdout.put(" ");
+stdout.put( "iValue3 = " ); 
+stdout.put( iValue3 ); 
+stdout.put(" ");
+stdout.newln();
+
+end ReferenceProgram;

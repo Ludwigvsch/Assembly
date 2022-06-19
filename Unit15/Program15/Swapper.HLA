@@ -1,0 +1,105 @@
+// Ludwig von Schoenfeldt
+// 05/29/2022
+// CS 17
+// SID: 1871721
+// Unit 15 Swapper
+
+
+program SwapperProgram;
+#include( "stdlib.hhf" );
+static 
+	X_Value: int16 := 0;
+	Y_Value: int16 := 0;
+	Z_Value: int16 := 0;
+procedure swapper( var x : int16; var y : int16; var z : int16 ); @nodisplay; @noframe; 
+static
+	dReturnAddress: dword;
+	temp_Number: int16 := 0;
+	
+	temp_EAX: dword := 0;
+	temp_EBX: dword := 0;
+	temp_ECX: dword := 0;
+	temp_EDX: dword := 0;
+	temp_ESI: dword := 0;
+begin swapper;
+
+mov(EAX, temp_EAX);
+mov(EBX, temp_EBX);
+mov(ECX, temp_ECX);
+mov(EDX, temp_EDX);
+mov(ESI, temp_ESI);
+pop(dReturnAddress);
+pop(EBX); 
+pop(ECX);
+pop(EDX); 
+push(dReturnAddress);
+push(temp_EAX);
+push(temp_EBX);
+push(temp_ECX);
+push(temp_EDX);
+push(temp_ESI);
+
+firstCheck:
+mov([ECX], ESI);
+cmp([EDX], SI);
+jg firstSwap;
+
+secondCheck:
+mov([ECX], ESI);
+cmp(SI, [EBX]);
+jg secondSwap;
+jmp endSwaps;
+
+firstSwap:
+	mov([EDX], EAX);
+	mov(AX, temp_Number);
+	mov([ECX], EAX);
+	mov(AX, [EDX]);
+	mov(temp_Number, AX);
+	mov(AX, [ECX]);
+	jmp secondCheck;
+	
+secondSwap:
+	mov([EBX], EAX);
+	mov(AX, temp_Number);
+	mov([ECX], EAX);
+	mov(AX, [EBX]);
+	mov(temp_Number, AX);
+	mov(AX, [ECX]);
+	jmp firstCheck;
+	
+endSwaps:
+	pop(EAX);
+	pop(EBX);
+	pop(ECX);
+	pop(EDX);
+	pop(ESI);
+	ret();
+
+end swapper;
+
+begin SwapperProgram;
+
+stdout.put("Gimme X: ");
+stdin.get(X_Value);
+stdout.put("Gimme Y: ");
+stdin.get(Y_Value);
+stdout.put("Gimme Z: ");
+stdin.get(Z_Value);
+
+lea(EAX, X_Value);
+push(EAX);
+lea(EAX, Y_Value);
+push(EAX);
+lea(EAX, Z_Value);
+push(EAX);
+
+call swapper;
+
+stdout.put("After sorting, X = ");
+stdout.puti16(Z_Value);
+stdout.put(", Y = ");
+stdout.puti16(Y_Value);
+stdout.put(", Z = ");
+stdout.puti16(X_Value);
+end SwapperProgram;

@@ -1,0 +1,61 @@
+// Ludwig von Schoenfeldt
+// 04/03/22
+// CS 17
+// SID: 1871721
+// Unit 7 program 3
+
+
+program binaryOutput;
+ #include("stdlib.hhf");
+ static
+   givenNumber : int8; 
+
+ begin binaryOutput;
+	//Ask for a decimal number
+    stdout.put( "Gimme a decimal value to print: ");
+    //Put that number in 'givenNumber'
+    stdin.get( givenNumber );
+	//Put 'givenNumber' inside 'BH'
+    mov( givenNumber, BH);
+
+    stdout.put(givenNumber, " in binary is: ");
+
+	//Shift left 1 at 'BH'
+	shl(1, BH);
+	lahf();
+	and( %0000_0001, AH );
+	//Print out 'AH' in Eight Bit form
+	stdout.puti8(AH);
+
+	shl(1, BH); //2
+	lahf();
+	and( %0000_0001, AH );
+	stdout.puti8(AH);
+
+	shl(1, BH); //Next
+	lahf();
+	and( %0000_0001, AH );
+	stdout.puti8(AH);
+	shl(1, BH); //Next
+	lahf();
+	and( %0000_0001, AH );
+	stdout.puti8(AH);
+	stdout.put("_");
+	shl(1, BH); //Next
+	lahf();
+	and( %0000_0001, AH );
+	stdout.puti8(AH);
+	shl(1, BH); //Next
+	lahf();
+	and( %0000_0001, AH );
+	stdout.puti8(AH);
+	shl(1, BH); //Next
+	lahf();
+	and( %0000_0001, AH );
+	stdout.puti8(AH);
+	shl(1, BH); //Next
+	lahf();
+	and( %0000_0001, AH );
+	stdout.puti8(AH);
+
+ end binaryOutput;

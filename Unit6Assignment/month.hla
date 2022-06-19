@@ -1,0 +1,9 @@
+program month;
+#include( "stdlib.hhf" );
+begin month;
+    stdout.put( "M   M   A   Y     Y", nl );
+    stdout.put( "MM MM  A A   Y   Y  ", nl );
+    stdout.put( "M M M A   A   Y Y   ", nl );
+    stdout.put( "M   M AAAAA    Y    ", nl );
+    stdout.put( "M   M A   A    Y    ", nl );
+end month;

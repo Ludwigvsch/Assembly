@@ -1,0 +1,74 @@
+// Ludwig von Schoenfeldt
+// 05/02/2022
+// CS 17
+// SID: 1871721
+// Unit 11 noDuplicate.HLA
+
+
+program noDuplicateProgram
+#include( "stdlib.hhf" );
+
+static
+x_input : int16 := 0;
+y_input : int16 := 0;
+z_input : int16 := 0;
+
+procedure noDuplicates( x: int16; y: int16; z: int16 ); @nodisplay; @noframe; 
+
+static
+iReturnAddress : dword;
+
+begin noDuplicates;
+pop(iReturnAddress);  
+pop(z);
+pop(y);               
+pop(x);
+push(iReturnAddress); 
+
+push(BX); 
+
+mov(x, BX); 
+cmp(y, BX);
+je ret_false;
+
+mov(y, BX);
+cmp(z, BX);
+je ret_false;
+
+mov(x, BX); 
+cmp(z, BX);
+je ret_false;
+
+jmp ret_true; 
+
+ret_true:
+mov(1, AL);
+jmp finish;
+
+ret_false:
+mov(0, AL);
+jmp finish;
+
+finish:
+pop(BX);
+ret();
+end noDuplicates;
+
+begin noDuplicateProgram;
+stdout.put("Feed Me X: ");
+stdin.get(x_input);
+stdout.put("Feed Me Y: ");
+stdin.get(y_input);
+stdout.put("Feed Me Z: ");
+stdin.get(z_input);
+
+push(x_input);
+push(y_input);
+push(z_input);
+
+call noDuplicates;
+
+stdout.put("AL = ");
+stdout.puti8(AL);
+
+end noDuplicateProgram;

@@ -1,0 +1,25 @@
+// Ludwig von Schoenfeldt
+// 04/03/22
+// CS 17
+// SID: 1871721
+// Unit 8 program 5
+
+program program5;
+    #include("stdlib.hhf");
+    static
+        n:int32;
+        i:int32;
+    begin program5;
+        stdout.put("Gimme a decimal value for n: ");
+        stdin.get(n);
+        mov(1,ecx);
+        stdout.put("You Have Entered: ",n,nl);
+        while (ecx <= n) do
+            for(mov(1,eax);eax<=ecx;add(1,eax)) do
+                stdout.puti32(eax);
+            endfor;
+            add(1,ecx);
+        endwhile;
+end program5;  
+
+

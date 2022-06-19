@@ -1,0 +1,75 @@
+// Ludwig von Schoenfeldt
+// 04/03/22
+// CS 17
+// SID: 1871721
+// Unit 7 program 4
+
+program doubleTable;
+
+#include( "stdlib.hhf" );
+static
+startingValue : int8 := 0;
+multiplier : int8 := 0;
+
+begin doubleTable;
+
+stdout.put( "Gimme a starting value: " );
+stdin.get( startingValue );
+
+// print row 1
+stdout.put( startingValue, ": ");
+rol( 1, startingValue );
+stdout.put( startingValue, " " );
+rol( 1, startingValue );
+stdout.put( startingValue, " " );
+rol( 1, startingValue );
+stdout.put( startingValue, nl );
+
+// return startingValue to original bit state
+rol( 5, startingValue );
+// increment startingValue
+add( 1, startingValue );
+
+// print row 2
+stdout.put( startingValue, ": ");
+rol( 1, startingValue );
+stdout.put( startingValue, " " );
+rol( 1, startingValue );
+stdout.put( startingValue, " " );
+rol( 1, startingValue );
+stdout.put( startingValue, nl );
+
+// return startingValue to original bit state
+rol( 5, startingValue );
+// increment startingValue
+add( 1, startingValue );
+
+// print row 3
+stdout.put( startingValue, ": ");
+rol( 1, startingValue );
+stdout.put( startingValue, " " );
+rol( 1, startingValue );
+stdout.put( startingValue, " " );
+rol( 1, startingValue );
+stdout.put( startingValue, nl );
+
+// return startingValue to original bit state
+rol( 5, startingValue );
+// increment startingValue
+add( 1, startingValue );
+
+// print row 4
+stdout.put( startingValue, ": ");
+rol( 1, startingValue );
+stdout.put( startingValue, " " );
+rol( 1, startingValue );
+stdout.put( startingValue, " " );
+rol( 1, startingValue );
+stdout.put( startingValue, nl );
+
+// return startingValue to original bit state
+rol( 5, startingValue );
+// increment startingValue
+add( 1, startingValue );
+
+end doubleTable;

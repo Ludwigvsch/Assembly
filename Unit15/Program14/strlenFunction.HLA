@@ -1,0 +1,67 @@
+// Ludwig von Schoenfeldt
+// 05/29/2022
+// CS 17
+// SID: 1871721
+// Unit 15 strlenFunction
+
+
+program strlenFunction;
+
+#include( "stdlib.hhf" );
+#include( "cs17string.hla" );
+
+const
+nullchar : byte := 0;
+static
+
+string_Data : byte[27] := ['a','b','c','d','e','f','g','h','i','j','k','l','m','n',
+ 'o','p','q','r','s','t','u','v','w','x','y','z','0'];
+
+base_String_Address : dword := 0; 
+string_Data_Length : uns16 := 26;
+
+procedure strlen( base_String_Address: dword ); @nodisplay; @noframe; 
+static
+  dReturnAddress : dword;
+
+  wDXRegister  : word  := 0;  
+  dEBXRegister : dword := 0; 
+begin strlen;
+  mov( EBX, dEBXRegister );
+  mov( DX, wDXRegister );
+  pop( dReturnAddress );  
+  pop( EBX ); 
+  push( dReturnAddress );
+  push( dEBXRegister );
+  push( wDXRegister );
+  mov( 0, DX );            
+  mov(0,AL);
+  putsRepeatLoop:
+     cmp( [ EBX ], DH );
+     je putsEndLoop;
+     inc( EBX );
+	 inc(AL);
+     jmp putsRepeatLoop;
+  putsEndLoop:
+
+  pop( DX );
+  pop( EBX );
+
+ret( );
+end strlen;
+
+
+begin strlenFunction;
+
+stdout.put( "Feed Me: " );
+mov( &string_Data, EAX );
+push( EAX );
+push( string_Data_Length );
+call gets;
+stdout.put( "The String You Entered: asdfasdf Has Length =  " );
+mov( &string_Data, EAX );
+push( EAX );
+call strlen;
+stdout.puti8(AL);
+
+end strlenFunction;
